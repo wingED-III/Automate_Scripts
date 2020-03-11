@@ -1,7 +1,9 @@
 #ignore everything
 *.*
-#except python 
+#except
 !*.py
+!*.exe
+!*.bat
 
 #ignore experiment file (not want to public)
 ex_*.py
