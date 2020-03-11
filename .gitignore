@@ -5,3 +5,8 @@
 
 #ignore experiment file (not want to public)
 ex_*.py
+
+#these folder
+__pycache__
+ิีbuild
+dist
