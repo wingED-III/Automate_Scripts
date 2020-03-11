@@ -1,7 +1,7 @@
 import os
 
 def createMusicTXT(musicList,playlistName):
-    musicTxt = open("test.txt","w+")
+    musicTxt = open(playlistName+"_song.txt","w+")
 
     musicTxt.write("music_station = "+playlistName+"\n\n")
     musicList = map(lambda fileX:code_for_a_song(fileX) ,musicList)
@@ -32,5 +32,5 @@ items = os.listdir()
 #print(items)
 musicOgglist = filter(lambda fileX:extensionTarget == os.path.splitext(fileX)[1]  ,items) # os.path.splitext(fileX)[1] # 0 is a file name.
 musicOgglist = list(musicOgglist)
-playlistName = input("Enter playlist name:")
+playlistName = input("Enter playlist name [No spacebar,only english lowercase alphabet]:\n")
 createMusicTXT(musicOgglist,playlistName)
