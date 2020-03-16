@@ -1,4 +1,4 @@
-# Python_Scripts
+# Scripts
 Things that might help life easier
-1 time used + some automate scripts.
+1-time used + some automate scripts.
 
