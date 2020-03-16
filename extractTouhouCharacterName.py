@@ -42,7 +42,7 @@ def main():
             #characterNameList.append(fullName)
             #print("{}  {}".format(i,fullName))
 
-            characterNameList.append(""+firstname)
+            characterNameList.append(firstname)
             
         prev = line
 
