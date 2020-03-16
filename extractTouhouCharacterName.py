@@ -18,7 +18,6 @@ def main():
         return
 
 
-
     file1 = open(filePath,'r',encoding="utf-8")
 
     data = file1.read()
