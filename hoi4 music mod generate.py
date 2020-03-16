@@ -2,7 +2,6 @@ import os
 
 def createMusicTXT(musicList,playlistName):
     musicTxt = open(playlistName+"_song.txt","w+")
-
     musicTxt.write("music_station = "+playlistName+"\n\n")          #write head
     musicList = map(lambda fileX:code_for_a_song(fileX) ,musicList) #generate Code from song Name
     musicTxt.writelines(musicList)                                  #write str list to file
