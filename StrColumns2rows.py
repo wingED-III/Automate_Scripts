@@ -24,7 +24,7 @@ def main():
             temp = ""
             n = 0
 
-    print(printList)
+    #print(printList)
     strList2File(printList,outputFile)
 
 def strList2File(strList,fileName):
