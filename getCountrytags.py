@@ -18,7 +18,8 @@ targetPath = CurrentPath+pathContainFiles
 
 items = os.listdir(targetPath)
 #print(items)
-items = list(map(lambda i:i.replace(" - ",".").split(".")[0]+"\n" ,items))
+seperator = ","
+items = list(map(lambda i:i.replace(" - ",".").split(".")[0]+seperator ,items)) # extract tags from file name
 #print(items)
 
 strList2File(items,outputFile)
