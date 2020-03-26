@@ -5,7 +5,7 @@ import pandas as pd
 
 def main():
     fileName = "Touhou 1-5 characters details.txt"
-    outputFile = fileName+" Name Only"
+    outputFile = fileName[:-4]+" Name Only"
 
     filePath = "myResource/"+fileName
     script_directory = os.path.dirname(__file__)
