@@ -4,8 +4,8 @@ import pandas as pd
 
 
 def main():
-    fileName = "Touhou 6-17 characters details.txt"
-    outputFile = "Touhou first Name Only"
+    fileName = "Touhou 1-5 characters details.txt"
+    outputFile = fileName+" Name Only"
 
     filePath = "myResource/"+fileName
     script_directory = os.path.dirname(__file__)
@@ -48,7 +48,7 @@ def main():
     #print(characterNameList)
 
     # Write to csv
-    df = pd.DataFrame(characterNameList)
+    df = pd.DataFrame(characterNameList,columns=['Name'])
     #print(df)
     df.to_csv(outputFile+'.csv')
 
