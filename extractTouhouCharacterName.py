@@ -4,7 +4,7 @@ import pandas as pd
 
 
 def main():
-    fileName = "Touhou 1-5 characters details.txt"
+    fileName = "Touhou others characters details.txt"
     outputFile = fileName[:-4]+" Name Only"
 
     filePath = "myResource/"+fileName
@@ -12,9 +12,9 @@ def main():
     filePath = os.path.join(script_directory,filePath)
 
     if Path(filePath).is_file():
-        print ("File exist")
+        print (fileName+":File exist")
     else:
-        print ("File not exist")
+        print (fileName+":File not exist")
         return
 
 
