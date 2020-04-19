@@ -12,9 +12,9 @@ class THgame:
         return str(self.number)+","+self.name+","+self.abrv
 
 def main():
-    # filePath ='output/Touhou first Name Only v1.csv'
-    # characterDF = pd.read_csv(filePath)
-    # print(characterDF.head())
+    filePath ='output/Touhou first Name Only v1.csv'
+    characterDF = pd.read_csv(filePath)
+    #print(characterDF.head())
  
     filePath ='myResource/touhou_game_names.csv'
     gameDF = pd.read_csv(filePath)
@@ -30,11 +30,37 @@ def main():
     # for game in gameList:
     #     print(game)
 
-    nameList = "--------"
-    genrateStr(gameList[0],nameList)
 
+    #nameList = "--------"
+    #genrateStr(gameList[0],nameList)
+
+
+    characterDF = characterDF[['Name','first_appearance']]
+    #print(characterDF.head())
+    characterList = characterDF.values.tolist()
+    # for x in characterList:
+    #     print(x)
+    #print(characterList)
+
+    nameByGame = []
+    for i in range(len(gameList)):
+        nameByGame.append([])
+    # print(len(nameByGame))
+
+    sortCharacter2GameList(characterList,nameByGame)
+    
+
+    print(nameByGame)
     pass
 
+def sortCharacter2GameList(charList,listB):
+    for character in charList:
+        appearNumber = character[1];
+        if appearNumber not in [None]:
+           print(appearNumber,type(appearNumber))
+           #listB[int(appearNumber-6)].append(character[0])
+    
+    pass
 
 def genrateStr(thgame=THgame,nameList =""):
     strTemplate = "#th"+thgame.numberStr+"\n"
