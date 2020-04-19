@@ -22,7 +22,6 @@ def main():
     gameDF = pd.read_csv(filePath)
     #print(gameDF.head())
 
-
     gameList=[]
     gameDF = gameDF.values.tolist()
     #print(gameDF)
@@ -32,11 +31,6 @@ def main():
     # for game in gameList:
     #     print(game)
 
-
-    #nameList = "--------"
-    #genrateStr(gameList[0],nameList)
-
-
     characterDF = characterDF[['Name','first_appearance']]
     #print(characterDF.head())
     characterList = characterDF.values.tolist()
@@ -44,15 +38,16 @@ def main():
     #     print(x)
     #print(characterList)
 
-
-
     sortCharacter2GameList(characterList,gameList)
     
-    for game in gameList:
-        print(game)
+    # for game in gameList:
+    #     print(game)
+
+    genrateStr(gameList[0],gameList[0].characterList)
     pass
 
 def sortCharacter2GameList(nameList,thgameList):
+    round = 0
     for item in nameList:
         appearNumber = item[1];
         if math.isnan(appearNumber):
@@ -60,21 +55,33 @@ def sortCharacter2GameList(nameList,thgameList):
 
         for game in thgameList:
             if appearNumber == game.number:
-                print(item[0])
+                # print(item[0],appearNumber,game.number)
                 game.characterList.append(item[0])
+                round = round+1
                 break;
-
+    print("Number of character =",round)
     pass
 
-def genrateStr(thgame=THgame,nameList =""):
+def genrateStr(thgame=THgame,nameList =[]):
     strTemplate = "#th"+thgame.numberStr+"\n"
     strTemplate += "TOUHOU_"+thgame.abrv+"_NAME"+" = {\n"
     name_in_localisation = "NAME_TOUHOU_"+thgame.abrv
-    strTemplate += name_in_localisation+"/n/n"
+    strTemplate += name_in_localisation+"\n\n"
     strTemplate += "type = ship\n\n"
     strTemplate += 'fallback_name = "Touhou '+thgame.abrv+" %"+'d"\n'
     strTemplate += "unique = {\n"
-    strTemplate += nameList
+
+    nameListStr =""
+    count = 0
+    for name in nameList:
+        nameListStr += '"'+name+'" '
+        count += 1
+        if count == 10:
+            count = 0
+            nameList+="\n"
+
+
+    strTemplate += nameListStr
    
 
     strTemplate+="\n }\n}"
