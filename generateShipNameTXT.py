@@ -14,6 +14,7 @@ class THgame:
         return str(self.number)+","+self.name+","+self.abrv+ ",["+",".join(self.characterList)+"]"
 
 def main():
+    outputFile = 'Touhou_ship_names'
     filePath ='output/Touhou first Name Only v1.csv'
     characterDF = pd.read_csv(filePath)
     #print(characterDF.head())
@@ -43,7 +44,13 @@ def main():
     # for game in gameList:
     #     print(game)
 
-    genrateStr(gameList[0],gameList[0].characterList)
+    printList = []
+    for game in gameList:
+        if len(game.characterList) > 0:
+            printList.append(genrateStr(game,game.characterList))
+
+
+    strList2File(printList,fileName=outputFile)
     pass
 
 def sortCharacter2GameList(nameList,thgameList):
@@ -63,43 +70,49 @@ def sortCharacter2GameList(nameList,thgameList):
     pass
 
 def genrateStr(thgame=THgame,nameList =[]):
+        ### generate
+    # #th6
+    # TOUHOU_EOSD_NAME = {
+    # 	name = NAME_TOUHOU_EOSD
+
+    # 	type = ship
+
+    # 	fallback_name = "Touhou EOSD %d"
+    # 	unique = {
+    # 		"Rumia" "Daiyousei" "Cirno" "Meiling" "Koakuma" "Patchouli" "Sakuya" "Remilia" 
+    # 		"Flandre" 
+    # 	}
+    # }
     strTemplate = "#th"+thgame.numberStr+"\n"
     strTemplate += "TOUHOU_"+thgame.abrv+"_NAME"+" = {\n"
-    name_in_localisation = "NAME_TOUHOU_"+thgame.abrv
+    name_in_localisation = "\tname = NAME_TOUHOU_"+thgame.abrv
     strTemplate += name_in_localisation+"\n\n"
-    strTemplate += "type = ship\n\n"
-    strTemplate += 'fallback_name = "Touhou '+thgame.abrv+" %"+'d"\n'
-    strTemplate += "unique = {\n"
+    strTemplate += "\ttype = ship\n\n"
+    strTemplate += '\tfallback_name = "Touhou '+thgame.abrv+" %"+'d"\n'
+    strTemplate += "\tunique = {\n"
 
-    nameListStr =""
+    nameListStr ="\t\t"
     count = 0
     for name in nameList:
         nameListStr += '"'+name+'" '
         count += 1
         if count == 10:
             count = 0
-            nameList+="\n"
-
+            nameListStr+="\n\t\t"        
 
     strTemplate += nameListStr
-   
 
-    strTemplate+="\n }\n}"
-    print(strTemplate)
+    strTemplate+="\n\t}\n}\n\n"
+    #print(strTemplate)
+    return strTemplate
     pass
-### generate
-# #th6
-# TOUHOU_EOSD_NAME = {
-# 	name = NAME_TOUHOU_EOSD
 
-# 	type = ship
 
-# 	fallback_name = "Touhou EOSD %d"
-# 	unique = {
-# 		"Rumia" "Daiyousei" "Cirno" "Meiling" "Koakuma" "Patchouli" "Sakuya" "Remilia" 
-# 		"Flandre" 
-# 	}
-# }
+def strList2File(strList,fileName):
+    fileTxt = open(fileName+".txt","w+")
+    fileTxt.writelines(strList)
+    fileTxt.close()
+
 
 if __name__ == "__main__":
     main()
