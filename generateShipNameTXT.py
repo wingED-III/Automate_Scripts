@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import math
 
 class THgame:
     def __init__(self,number,name,abrv):
@@ -7,9 +8,10 @@ class THgame:
         self.numberStr = str(number)
         self.name = name
         self.abrv = abrv
+        self.characterList = []
     
     def __str__(self):
-        return str(self.number)+","+self.name+","+self.abrv
+        return str(self.number)+","+self.name+","+self.abrv+ ",["+",".join(self.characterList)+"]"
 
 def main():
     filePath ='output/Touhou first Name Only v1.csv'
@@ -42,24 +44,26 @@ def main():
     #     print(x)
     #print(characterList)
 
-    nameByGame = []
-    for i in range(len(gameList)):
-        nameByGame.append([])
-    # print(len(nameByGame))
 
-    sortCharacter2GameList(characterList,nameByGame)
+
+    sortCharacter2GameList(characterList,gameList)
     
-
-    print(nameByGame)
+    for game in gameList:
+        print(game)
     pass
 
-def sortCharacter2GameList(charList,listB):
-    for character in charList:
-        appearNumber = character[1];
-        if appearNumber not in [None]:
-           print(appearNumber,type(appearNumber))
-           #listB[int(appearNumber-6)].append(character[0])
-    
+def sortCharacter2GameList(nameList,thgameList):
+    for item in nameList:
+        appearNumber = item[1];
+        if math.isnan(appearNumber):
+            continue;
+
+        for game in thgameList:
+            if appearNumber == game.number:
+                print(item[0])
+                game.characterList.append(item[0])
+                break;
+
     pass
 
 def genrateStr(thgame=THgame,nameList =""):
