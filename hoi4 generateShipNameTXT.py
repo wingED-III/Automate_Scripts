@@ -15,7 +15,7 @@ class THgame:
         return str(self.number)+","+self.name+","+self.abrv+ ",["+",".join(self.characterList)+"]"
 
 def main():
-    outputFile = 'Touhou_ship_names'
+    outputFile = 'Touhou_ship_names.txt'
     localisationFile = "TouhouShipName"
     filePath ='myResource/Touhou first Name Only v2.csv'
     characterDF = pd.read_csv(filePath)
@@ -125,7 +125,7 @@ def generateNamePatterns(thgame=THgame,nameList =[]):
 
 
 def strList2File(strList,fileName):
-    fileTxt = open(fileName+".txt","w+")
+    fileTxt = open(fileName,"w+")
     fileTxt.writelines(strList)
     fileTxt.close()
 
