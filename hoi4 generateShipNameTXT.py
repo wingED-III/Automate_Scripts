@@ -123,7 +123,7 @@ def generateNamePatterns(thgame=THgame,nameList =[]):
     # }
     strTemplate = "#th"+thgame.numberStr+"\n"
     strTemplate += "TOUHOU_"+thgame.abrv+"_NAME"+" = {\n"
-    name_in_localisation = "\tname = "+thgame.localName +"\n\n"
+    strTemplate += "\tname = "+thgame.localName +"\n\n"
     strTemplate += "\ttype = ship\n\n"
     strTemplate += '\tfallback_name = "Touhou '+thgame.abrv+" %"+'d"\n'
     strTemplate += "\tunique = {\n"
