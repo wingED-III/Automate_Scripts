@@ -9,17 +9,19 @@ class THgame:
         self.name = name
         self.abrv = abrv
         self.characterList = []
+        self.localName = "NAME_TOUHOU_"+abrv # for localisation file
     
     def __str__(self):
         return str(self.number)+","+self.name+","+self.abrv+ ",["+",".join(self.characterList)+"]"
 
 def main():
     outputFile = 'Touhou_ship_names'
-    filePath ='output/Touhou first Name Only v1.csv'
+    localisationFile = "TouhouShipName"
+    filePath ='myResource/Touhou Name Only v2.csv'
     characterDF = pd.read_csv(filePath)
     #print(characterDF.head())
  
-    filePath ='myResource/touhou_game_names.csv'
+    filePath ='myResource/touhou_game_names v2.csv'
     gameDF = pd.read_csv(filePath)
     #print(gameDF.head())
 
@@ -45,17 +47,27 @@ def main():
     #     print(game)
 
     printList = []
-    localisationList = []
     for game in gameList:
         if len(game.characterList) > 0:
-            printList.append(genrateStr(game,game.characterList,localisationList))
+            printList.append(generateNamePatterns(game,game.characterList))
 
 
     strList2File(printList,fileName=outputFile)
 
     ## Generate Shipname.yml ##
+    generateLocalisationPattern(fileName=localisationFile,thgameList=gameList)
 
+    pass
 
+def generateLocalisationPattern(fileName,thgameList=[]):
+### pattern
+    #  l_english:
+    #  NAME_THEME_PREFECTURES:0 "Provinces & Prefectures"
+    strTemplate = "l_english:"+"\n"
+    for game in thgameList:
+        strTemplate+= game.localName+":0 "+"\"Touhou "+game.name +"\"\n"
+        
+    strList2File(strTemplate,fileName=fileName+"_l_english.yml")
     pass
 
 def sortCharacter2GameList(nameList,thgameList):
@@ -74,7 +86,7 @@ def sortCharacter2GameList(nameList,thgameList):
     print("Number of character =",round)
     pass
 
-def genrateStr(thgame=THgame,nameList =[],localisationList =[]):
+def generateNamePatterns(thgame=THgame,nameList =[]):
         ### generate
     # #th6
     # TOUHOU_EOSD_NAME = {
@@ -90,9 +102,7 @@ def genrateStr(thgame=THgame,nameList =[],localisationList =[]):
     # }
     strTemplate = "#th"+thgame.numberStr+"\n"
     strTemplate += "TOUHOU_"+thgame.abrv+"_NAME"+" = {\n"
-    name_in_localisation = "\tname = NAME_TOUHOU_"+thgame.abrv
-    localisationList.append(name_in_localisation)
-    strTemplate += name_in_localisation+"\n\n"
+    name_in_localisation = "\tname = "+thgame.localName +"\n\n"
     strTemplate += "\ttype = ship\n\n"
     strTemplate += '\tfallback_name = "Touhou '+thgame.abrv+" %"+'d"\n'
     strTemplate += "\tunique = {\n"
