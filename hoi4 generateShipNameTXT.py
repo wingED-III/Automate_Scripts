@@ -45,12 +45,17 @@ def main():
     #     print(game)
 
     printList = []
+    localisationList = []
     for game in gameList:
         if len(game.characterList) > 0:
-            printList.append(genrateStr(game,game.characterList))
+            printList.append(genrateStr(game,game.characterList,localisationList))
 
 
     strList2File(printList,fileName=outputFile)
+
+    ## Generate Shipname.yml ##
+
+
     pass
 
 def sortCharacter2GameList(nameList,thgameList):
@@ -69,7 +74,7 @@ def sortCharacter2GameList(nameList,thgameList):
     print("Number of character =",round)
     pass
 
-def genrateStr(thgame=THgame,nameList =[]):
+def genrateStr(thgame=THgame,nameList =[],localisationList =[]):
         ### generate
     # #th6
     # TOUHOU_EOSD_NAME = {
@@ -86,6 +91,7 @@ def genrateStr(thgame=THgame,nameList =[]):
     strTemplate = "#th"+thgame.numberStr+"\n"
     strTemplate += "TOUHOU_"+thgame.abrv+"_NAME"+" = {\n"
     name_in_localisation = "\tname = NAME_TOUHOU_"+thgame.abrv
+    localisationList.append(name_in_localisation)
     strTemplate += name_in_localisation+"\n\n"
     strTemplate += "\ttype = ship\n\n"
     strTemplate += '\tfallback_name = "Touhou '+thgame.abrv+" %"+'d"\n'
