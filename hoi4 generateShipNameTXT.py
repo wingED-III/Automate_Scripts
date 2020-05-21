@@ -17,7 +17,7 @@ class THgame:
 def main():
     outputFile = 'Touhou_ship_names'
     localisationFile = "TouhouShipName"
-    filePath ='myResource/Touhou Name Only v2.csv'
+    filePath ='myResource/Touhou first Name Only v2.csv'
     characterDF = pd.read_csv(filePath)
     #print(characterDF.head())
  
