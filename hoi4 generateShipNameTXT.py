@@ -72,17 +72,38 @@ def generateLocalisationPattern(fileName,thgameList=[]):
 
 def sortCharacter2GameList(nameList,thgameList):
     round = 0
+    Allpc98 = None
+    AllTouhou = None
+    Allwindows = None
+    for game in thgameList:
+        if game.name == "All PC-98":
+            Allpc98 = game
+        elif game.name == "All Windows":
+            Allwindows = game
+        elif game.name == "All Touhou":
+            AllTouhou = game
+
     for item in nameList:
-        appearNumber = item[1];
+        appearNumber = item[1]
+        characterName = item[0]
         if math.isnan(appearNumber):
             continue;
-
+        # Add to specific game
         for game in thgameList:
             if appearNumber == game.number:
                 # print(item[0],appearNumber,game.number)
-                game.characterList.append(item[0])
+                game.characterList.append(characterName)
                 round = round+1
                 break;
+        # Check if PC98
+        if appearNumber < 6:
+            Allpc98.characterList.append(characterName)
+        else:
+            Allwindows.characterList.append(characterName)
+
+        # Add to All
+        AllTouhou.characterList.append(characterName)
+        
     print("Number of character =",round)
     pass
 
