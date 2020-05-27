@@ -9,7 +9,7 @@ class THgame:
         self.name = name
         self.abrv = abrv
         self.characterList = []
-        self.localName = "NAME_TOUHOU_"+abrv # for localisation file
+        self.localName = "NAME_TOUHOU_"+abrv.upper() # for localisation file
 
     def getUpperAbrv(self):
         return self.abrv.upper()
@@ -29,7 +29,7 @@ def main():
     characterDF = pd.read_csv(filePath)
     #print(characterDF.head())
  
-    filePath ='myResource/touhou_game_names v2.csv'
+    filePath ='myResource/touhou_game_names v3.csv'
     gameDF = pd.read_csv(filePath)
     #print(gameDF.head())
 
