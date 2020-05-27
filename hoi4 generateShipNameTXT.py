@@ -10,13 +10,21 @@ class THgame:
         self.abrv = abrv
         self.characterList = []
         self.localName = "NAME_TOUHOU_"+abrv # for localisation file
-    
+
+    def getUpperAbrv(self):
+        return self.abrv.upper()
+        pass
+
+    def getNameInGame(self):
+        ### pattern: Touhou [xx] [abrv]
+        return "Touhou "+self.numberStr+" "+self.abrv
+        pass
     def __str__(self):
         return str(self.number)+","+self.name+","+self.abrv+ ",["+",".join(self.characterList)+"]"
 
 def main():
     outputFile = 'Touhou_ship_names.txt'
-    localisationFile = "TouhouShipName"
+    localisationFile = "Touhou_ship_names"
     filePath ='myResource/Touhou first Name Only v2.csv'
     characterDF = pd.read_csv(filePath)
     #print(characterDF.head())
@@ -51,7 +59,7 @@ def main():
         if len(game.characterList) > 0:
             printList.append(generateNamePatterns(game,game.characterList))
 
-
+    ## Generate Shipname.txt ##
     strList2File(printList,fileName=outputFile)
 
     ## Generate Shipname.yml ##
@@ -60,12 +68,12 @@ def main():
     pass
 
 def generateLocalisationPattern(fileName,thgameList=[]):
-### pattern
+    ### pattern
     #  l_english:
     #  NAME_THEME_PREFECTURES:0 "Provinces & Prefectures"
-    strTemplate = "l_english:"+"\n"
+    strTemplate = "l_english:"+"\n "
     for game in thgameList:
-        strTemplate+= game.localName+":0 "+"\"Touhou "+game.name +"\"\n"
+        strTemplate+= game.localName+":0 "+"\""+game.getNameInGame() +"\" \n "
         
     strList2File(strTemplate,fileName=fileName+"_l_english.yml")
     pass
@@ -122,7 +130,7 @@ def generateNamePatterns(thgame=THgame,nameList =[]):
     # 	}
     # }
     strTemplate = "#th"+thgame.numberStr+"\n"
-    strTemplate += "TOUHOU_"+thgame.abrv+"_NAME"+" = {\n"
+    strTemplate += "TOUHOU_"+thgame.getUpperAbrv()+"_NAME"+" = {\n"
     strTemplate += "\tname = "+thgame.localName +"\n\n"
     strTemplate += "\ttype = ship\n\n"
     strTemplate += '\tfallback_name = "Touhou '+thgame.abrv+" %"+'d"\n'
