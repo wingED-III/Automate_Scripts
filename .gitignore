@@ -4,6 +4,7 @@
 !*.py
 !*.exe
 !*.bat
+!*/Powershell/*
 
 #ignore experiment file (not want to public)
 ex_*.py
