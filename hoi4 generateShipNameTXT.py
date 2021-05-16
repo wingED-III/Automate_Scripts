@@ -25,7 +25,7 @@ class THgame:
 def main():
     outputFile = 'Touhou_ship_names.txt'
     localisationFile = "Touhou_ship_names"
-    filePath ='myResource/Touhou first Name Only v2.csv'
+    filePath ='myResource/Touhou first Name Only v3.csv'
     characterDF = pd.read_csv(filePath)
     #print(characterDF.head())
  
@@ -99,7 +99,7 @@ def sortCharacter2GameList(nameList,thgameList):
         # Add to specific game
         for game in thgameList:
             if appearNumber == game.number:
-                # print(item[0],appearNumber,game.number)
+                print(item[0],appearNumber,game.number)
                 game.characterList.append(characterName)
                 round = round+1
                 break;
@@ -133,7 +133,7 @@ def generateNamePatterns(thgame=THgame,nameList =[]):
     strTemplate += "TOUHOU_"+thgame.getUpperAbrv()+"_NAME"+" = {\n"
     strTemplate += "\tname = "+thgame.localName +"\n\n"
     strTemplate += "\ttype = ship\n\n"
-    strTemplate += '\tfallback_name = "Touhou '+thgame.abrv+" %"+'d"\n'
+    strTemplate += '\t#fallback_name = "Touhou '+thgame.abrv+" %"+'d"\n'
     strTemplate += "\tunique = {\n"
 
     nameListStr ="\t\t"
@@ -148,7 +148,7 @@ def generateNamePatterns(thgame=THgame,nameList =[]):
     strTemplate += nameListStr
 
     strTemplate+="\n\t}\n}\n\n"
-    #print(strTemplate)
+    # print(strTemplate)
     return strTemplate
     pass
 
