@@ -5,7 +5,7 @@ import math
 class THgame:
     def __init__(self,number,name,abrv):
         self.number = number
-        self.numberStr = str(number)
+        self.numberStr = str(number) if number % 1 != 0 else str(int(number))
         self.name = name
         self.abrv = abrv
         self.characterList = []
@@ -23,8 +23,9 @@ class THgame:
         return str(self.number)+","+self.name+","+self.abrv+ ",["+",".join(self.characterList)+"]"
 
 def main():
-    outputFile = 'Touhou_ship_names.txt'
-    localisationFile = "Touhou_ship_names"
+    save_path = 'output/'
+    outputFile = save_path+'Touhou_ship_names.txt'
+    localisationFile = save_path+"Touhou_ship_names"
     filePath ='myResource/Touhou first Name Only v3.csv'
     characterDF = pd.read_csv(filePath)
     #print(characterDF.head())
